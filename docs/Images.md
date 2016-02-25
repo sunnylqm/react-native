@@ -35,6 +35,8 @@ And `button.js` code contains
 
 Packager will bundle and serve the image corresponding to device's screen density, e.g. on iPhone 5s `check@2x.png` will be used, on Nexus 5 – `check@3x.png`. If there is no image matching the screen density, the closest best option will be selected.
 
+Note that if a packager is running when you are adding new images to your project, then you need to restart the packager in order to require them.
+
 Here are some benefits that you get:
 
 1. Same system on iOS and Android.

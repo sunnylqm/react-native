@@ -110,6 +110,19 @@ public class ReactViewBackgroundDrawable extends Drawable {
   private final Context mContext;
   private int mLayoutDirection;
 
+  private ConstantState mConstantState = new ConstantState() {
+    @androidx.annotation.NonNull
+    @Override
+    public Drawable newDrawable() {
+      return null;
+    }
+
+    @Override
+    public int getChangingConfigurations() {
+      return 0;
+    }
+  };
+
   public enum BorderRadiusLocation {
     TOP_LEFT,
     TOP_RIGHT,
@@ -149,6 +162,11 @@ public class ReactViewBackgroundDrawable extends Drawable {
     }
 
     return false;
+  }
+
+  @Override
+  public ConstantState getConstantState() {
+    return mConstantState;
   }
 
   @Override

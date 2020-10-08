@@ -38,7 +38,7 @@ public class ShareModule extends NativeShareModuleSpec {
   /**
    * Open a chooser dialog to send text content to other apps.
    *
-   * <p>Refer http://developer.android.com/intl/ko/training/sharing/send.html
+   * <p>Refer https://developer.android.com/training/sharing/send
    *
    * @param content the data to send
    * @param dialogTitle the title of the chooser dialog

@@ -1,92 +1,85 @@
 [ignore]
-; We fork some components by platform
-.*/*[.]android.js
-
 ; Ignore templates for 'react-native init'
-.*/local-cli/templates/.*
+<PROJECT_ROOT>/packages/react-native/template/.*
+<PROJECT_ROOT>/packages/react-native/sdks/.*
+
+; Ignore the codegen e2e tests
+<PROJECT_ROOT>/packages/react-native-codegen/e2e/__test_fixtures__/modules/NativeEnumTurboModule.js
 
 ; Ignore the Dangerfile
-<PROJECT_ROOT>/bots/dangerfile.js
+<PROJECT_ROOT>/packages/react-native-bots/dangerfile.js
 
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
 
-; Ignore unexpected extra "@providesModule"
-.*/node_modules/.*/node_modules/fbjs/.*
+; Ignore other platform suffixes
+.*\.macos\.js$
+.*\.windows\.js$
 
-; Ignore duplicate module providers
-; For RN Apps installed via npm, "Libraries" folder is inside
-; "node_modules/react-native" but in the source repo it is in the root
-.*/Libraries/react-native/React.js
+.*/node_modules/resolve/test/resolver/malformed_package_json/package\.json$
 
-; Ignore polyfills
-.*/Libraries/polyfills/.*
+; Checked-in build output
+<PROJECT_ROOT>/packages/debugger-frontend/dist/
 
-; These should not be required directly
-; require from fbjs/lib instead: require('fbjs/lib/invariant')
-.*/node_modules/invariant/.*
-.*/node_modules/warning/.*
+; Generated build output
+<PROJECT_ROOT>/packages/.*/dist
+
+; helloworld
+<PROJECT_ROOT>/packages/helloworld/ios/Pods/
+
+[untyped]
+.*/node_modules/@react-native-community/cli/.*/.*
 
 [include]
 
+[declarations]
+.*/node_modules/.*
+
 [libs]
-Libraries/react-native/react-native-interface.js
-flow/
-flow-github/
+flow-typed/
+packages/react-native/interface.js
+packages/react-native/flow/
 
 [options]
+enums=true
+casting_syntax=both
+
 emoji=true
 
-esproposal.optional_chaining=enable
-esproposal.nullish_coalescing=enable
+exact_by_default=true
 
-module.system=haste
-module.system.haste.use_name_reducers=true
-# keep the following in sync with server/haste/hasteImpl.js
-# get basename
-module.system.haste.name_reducers='^.*/\([a-zA-Z0-9$_.-]+\.js\(\.flow\)?\)$' -> '\1'
-# strip .js or .js.flow suffix
-module.system.haste.name_reducers='^\(.*\)\.js\(\.flow\)?$' -> '\1'
-# strip .ios suffix
-module.system.haste.name_reducers='^\(.*\)\.ios$' -> '\1'
-module.system.haste.name_reducers='^\(.*\)\.android$' -> '\1'
-module.system.haste.name_reducers='^\(.*\)\.native$' -> '\1'
-module.system.haste.paths.blacklist=.*/__tests__/.*
-module.system.haste.paths.blacklist=.*/__mocks__/.*
-module.system.haste.paths.whitelist=<PROJECT_ROOT>/Libraries/.*
-module.system.haste.paths.whitelist=<PROJECT_ROOT>/RNTester/.*
-module.system.haste.paths.whitelist=<PROJECT_ROOT>/IntegrationTests/.*
-module.system.haste.paths.blacklist=<PROJECT_ROOT>/Libraries/react-native/react-native-implementation.js
-module.system.haste.paths.blacklist=<PROJECT_ROOT>/Libraries/Animated/src/polyfills/.*
+format.bracket_spacing=false
+
+module.file_ext=.js
+module.file_ext=.json
+
+experimental.multi_platform=true
+experimental.multi_platform.extensions=.ios
+experimental.multi_platform.extensions=.android
 
 munge_underscores=true
 
-module.name_mapper='^[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> 'RelativeImageStub'
+module.name_mapper='^react-native$' -> '<PROJECT_ROOT>/packages/react-native/index.js'
+module.name_mapper='^react-native/\(.*\)$' -> '<PROJECT_ROOT>/packages/react-native/\1'
+module.name_mapper='^@react-native/dev-middleware$' -> '<PROJECT_ROOT>/packages/dev-middleware'
+module.name_mapper='^@?[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> '<PROJECT_ROOT>/packages/react-native/Libraries/Image/RelativeImageStub'
 
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
 suppress_type=$FlowFixMeProps
 suppress_type=$FlowFixMeState
-
-suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(<VERSION>\\)? *\\(site=[a-z,_]*react_native\\(_ios\\)?_\\(oss\\|fb\\)[a-z,_]*\\)?)\\)
-suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(<VERSION>\\)? *\\(site=[a-z,_]*react_native\\(_ios\\)?_\\(oss\\|fb\\)[a-z,_]*\\)?)\\)?:? #[0-9]+
-suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
-suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
+suppress_type=$FlowFixMeEmpty
 
 [lints]
-all=warn
-unnecessary-optional-chain=off
-
-# There is an ESLint rule for this
-unclear-type=off
-
-sketchy-null=off
 sketchy-null-number=warn
 sketchy-null-mixed=warn
-
-# This is noisy for now. We *do* still want to warn on importing types
-# from untyped files, which is covered by untyped-type-import
-untyped-import=off
+sketchy-number=warn
+untyped-type-import=warn
+nonstrict-import=warn
+deprecated-type=error
+unsafe-getters-setters=warn
+unnecessary-invariant=warn
+unused-promise=error
 
 [strict]
 deprecated-type
@@ -98,4 +91,4 @@ untyped-import
 untyped-type-import
 
 [version]
-^0.87.0
+^0.238.0

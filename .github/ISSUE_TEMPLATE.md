@@ -1,3 +1,4 @@
-GitHub Issues in the `facebook/react-native` repository are used exclusively for tracking bugs in React Native.
+✋ To keep the backlog clean and actionable, issues will be
+🚫 closed if they do not follow one of the issue templates:
+👉 https://github.com/facebook/react-native/issues/new/choose
 
-Please take a look at the issue templates at https://github.com/facebook/react-native/issues/new/choose before submitting a new issue. Following one of the issue templates will ensure maintainers can route your request efficiently. Thanks!

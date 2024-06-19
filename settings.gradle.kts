@@ -1,0 +1,41 @@
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+pluginManagement {
+  repositories {
+    mavenCentral()
+    google()
+    gradlePluginPortal()
+  }
+  includeBuild("packages/react-native-gradle-plugin/")
+}
+
+include(
+    ":packages:react-native:ReactAndroid",
+    ":packages:react-native:ReactAndroid:hermes-engine",
+    ":packages:react-native:ReactAndroid:external-artifacts",
+    ":packages:rn-tester:android:app")
+
+includeBuild("packages/react-native-gradle-plugin/")
+
+dependencyResolutionManagement {
+  versionCatalogs {
+    create("libs") { from(files("packages/react-native/gradle/libs.versions.toml")) }
+  }
+}
+
+rootProject.name = "react-native-github"
+
+plugins {
+  id("org.gradle.toolchains.foojay-resolver-convention").version("0.5.0")
+  id("com.facebook.react.settings")
+}
+
+configure<com.facebook.react.ReactSettingsExtension> {
+  autolinkLibrariesFromCommand(
+      workingDirectory = file("packages/rn-tester/"), lockFiles = files("yarn.lock"))
+}

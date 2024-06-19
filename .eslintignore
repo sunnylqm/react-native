@@ -1,10 +1,17 @@
-# node_modules ignored by default
-
-**/staticBundle.js
 **/main.js
-Libraries/vendor/**/*
-Libraries/Renderer/*
-pr-inactivity-bookmarklet.js
-question-bookmarklet.js
-flow/
-danger/
+**/staticBundle.js
+docs/generatedComponentApiDocs.js
+packages/react-native/flow/
+packages/react-native/sdks/
+packages/react-native/ReactAndroid/hermes-engine/build/
+packages/react-native/Libraries/Renderer/*
+packages/react-native/Libraries/vendor/**/*
+node_modules/
+packages/*/node_modules
+packages/*/dist
+packages/debugger-frontend/dist/**/*
+packages/react-native-codegen/lib
+tools/eslint/rules/sort-imports.js
+**/Pods/*
+**/*.macos.js
+**/*.windows.js
